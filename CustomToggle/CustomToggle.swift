@@ -13,36 +13,38 @@ struct CustomToggel : ToggleStyle{
         ZStack{
             if isDarkMode == true{
                 Color.init(hex: "#1B2737")
-                
-                    .animation(.spring())
             }
+            Image(systemName: "moon.stars.fill")
+                .resizable()
+                .frame(width: 200, height: 200)
+                .foregroundColor(Color.init(hex: "#131E25"))
+                .opacity(!isDarkMode ? 0 : 1)
+            
+            
             VStack{
                 Text("Custom Toggle")
                     .font(.largeTitle)
                     .foregroundColor(isDarkMode ? .white : .black)
-            HStack{
-                configuration.label
-                Button(action:{
-                    withAnimation(.linear){
-                        isDarkMode.toggle()
-                        UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode")
+                HStack{
+                    configuration.label
+                    Button(action:{
+                        withAnimation(.linear){
+                            isDarkMode.toggle()
+                            UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode")
+                        }
+                    }){
+                        Image(systemName: isDarkMode ? "checkmark.square.fill" : "square")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(isDarkMode ? .white : .black)
                     }
-                }){
-                    Image(systemName: isDarkMode ? "checkmark.square.fill" : "square")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(isDarkMode ? .white : .black)
-                }
+                    Spacer()
+                }.padding(.leading)
                 Spacer()
-            }.padding(.leading)
-                Spacer()
-                Image(systemName: "moon.stars.fill")
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .foregroundColor(isDarkMode ? Color.init(hex: "#131E25") : .black)
-                    .offset(y: -200)
             }.padding(.top,40)
+            
         }.ignoresSafeArea()
+        .animation(.spring())
     }
 }
 
